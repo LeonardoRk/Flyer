@@ -2,7 +2,7 @@ from random import randint
 from pgzero.actor import Actor
 
 import sys
-sys.path.append("/home/leonardo/Leonardo/jogos digitais/Flyer/jogo")
+sys.path.append("/home/leonardo/Leonardo/GIT/Flyer/Flyer/jogo")
 
 import MainPrincipal as Mp
 

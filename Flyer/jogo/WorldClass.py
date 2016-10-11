@@ -1,3 +1,4 @@
+
 #Classe mundo
 class World():
 
@@ -25,6 +26,6 @@ class World():
 
             if self.drone.sprite.right -1 >= box.sprite.left and self.drone.sprite.left + 1 <= box.sprite.right:
                 if self.drone.sprite.bottom -8 >= box.sprite.top and self.drone.sprite.top +8 <= box.sprite.bottom:
-                    #exit()
+                	exit()
 
 

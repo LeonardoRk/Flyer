@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/leonardo/Leonardo/jogos digitais/Flyer/jogo")
+sys.path.append("/home/leonardo/Leonardo/GIT/Flyer/Flyer/jogo")
 
 from pgzero.actor import Actor
 from pgzero.keyboard import keyboard
