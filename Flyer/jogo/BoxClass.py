@@ -7,7 +7,7 @@ sys.path.append("/home/leonardo/Leonardo/GIT/Flyer/Flyer/jogo")
 import MainPrincipal as Mp
 
 # Classe Box
-class Box():
+class Box:
 
 #Construtor da Box
     def __init__(self , name , speed0=0):
@@ -34,12 +34,14 @@ class Box():
     def evaluateSpeed(self):
         if self.pos[0] < 0:
             self.tempo = 0
-            self.speed -= 0.5
+            self.speed = -0.5
 
 #Define a pos
     def evaluatePos(self , dt):
         if self.pos[0] < 0:
-            self.pos = (Mp.WIDTH + 25, randint(0 , Mp.HEIGHT))
+            MIDDLEPNG = 15
+            OUTOFZONEPOINTS = 35
+            self.pos = (Mp.WIDTH + 25, randint( OUTOFZONEPOINTS + MIDDLEPNG, Mp.HEIGHT - MIDDLEPNG))
         else:
             self.pos = (self.pos[0]  + self.speed * self.tempo , self.pos[1] )
 
