@@ -21,6 +21,7 @@ class Drone:
         self.position = position
         self.fr = (0,0)
         self.tempo = 0
+        self.containsSlowMotion = False
 
 
 #Desenha frames
