@@ -6,16 +6,16 @@ class World:
 
 
 #Construtor do mundo
-    def __init__(self , drone , boxes=[] , losango=0 , background=0):
+    def __init__(self , drone , boxes=[] , losango=0 , background=0 , gravityChange=0):
         self.drone = drone
         self.boxes = list(boxes)
         self.losango = losango
         self.background = background
+        self.gravityChange = gravityChange
 
 #Atualiza o estados dos frames
     def update(self, dt):
         self.drone.update(dt)
-        print(self.boxes[0].speed)
         for box in self.boxes:
             box.update(dt)
         self.defineTouchOnBox()
@@ -24,6 +24,10 @@ class World:
             self.losango.update(dt)
             self.defineTouchOnLosange()
 
+        if self.gravityChange != None and self.gravityChange != 0:
+            self.gravityChange.update(dt)
+            self.defineTouchOnGravityChange()
+
 #Desenha frames na tela
     def draw(self):
         self.background.draw()
@@ -31,8 +35,12 @@ class World:
 
         for box in self.boxes:
             box.draw()
+
         if self.losango != None and self.losango != 0:
             self.losango.draw()
+
+        if self.gravityChange != None and self.gravityChange != 0:
+            self.gravityChange.draw()
 
 #Define contato entre drone e caixa
     def defineTouchOnBox(self):
@@ -51,6 +59,14 @@ class World:
                     self.boxes[1].slowMotion = True
                     self.boxes[2].slowMotion = True
 
+
+    def defineTouchOnGravityChange(self):
+        if self.drone.sprite.right - 5 >= self.gravityChange.sprite.left:
+            if self.drone.sprite.bottom - 10 >= self.gravityChange.sprite.top and \
+                            self.drone.sprite.top <= self.gravityChange.sprite.bottom:
+                if self.drone.containsSlowMotion == False:
+                    self.gravityChange = None
+                    self.drone.gravity = -self.drone.gravity
 
 
 

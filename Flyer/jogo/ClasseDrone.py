@@ -5,7 +5,6 @@ from pgzero.actor import Actor
 from pgzero.keyboard import keyboard
 import MainPrincipal as Mp
 
-GRAVITY = 80
 DISTANCE_BETWEEN_CENTER_TO_LEFT_BORDER = 24
 DISTANCE_BETWEEN_CENTER_TO_TOP_BORDER = 15
 
@@ -15,6 +14,7 @@ class Drone:
 #Construtor do Drone
     def __init__(self , name , mass=0 ,  aceleration=(0,0)  ,position=(0,0)  ):
         self.sprite = Actor(name.lower() , pos=(position[0] , position[1]) )
+        self.gravity = 80
         self.mass = mass
         self.aceleration = aceleration
         self.speed = (0,0)
@@ -22,6 +22,7 @@ class Drone:
         self.fr = (0,0)
         self.tempo = 0
         self.containsSlowMotion = False
+        self.containsGravityChange = False
 
 
 #Desenha frames
@@ -53,7 +54,7 @@ class Drone:
                 jumpforce = 0
                 downforce = 200
             self.fr = ( self.fr[0] ,
-                     (-jumpforce * self.mass) + (self.mass * GRAVITY) + (self.mass * downforce))
+                     (-jumpforce * self.mass) + (self.mass * self.gravity) + (self.mass * downforce))
 
 
 #Calcula a aceleração

@@ -21,6 +21,7 @@ class Box:
         self.tempo = 0
         self.slowMotion = False
         self.tempoSlowMotion = 0
+        self.storeSpeed = None
 
 #Atualiza o estados dos frames
     def update(self, dt):
@@ -36,13 +37,18 @@ class Box:
 #Define a velocidade
     def evaluateSpeed(self , dt):
         if self.slowMotion == False:
+            if self.storeSpeed != None:
+                self.speed = self.storeSpeed
+                self.storeSpeed = None
             if self.pos[0] < 0:
                 self.tempo = 0
                 self.speed -= 0.5
         else:
+            if self.storeSpeed == None:
+                self.storeSpeed = self.speed
             self.speed = -0.15
             self.tempoSlowMotion += dt
-            print(self.tempoSlowMotion)
+
 
             if self.tempoSlowMotion >= self.TIME_SLOWMOTION:
                 self.tempoSlowMotion = 0

@@ -6,6 +6,7 @@ import WorldClass as Wc
 import BoxClass as Box
 import LosangleClass as Lc
 import Background as Bg
+import GravityItem as Gc
 import Services
 
 
@@ -21,7 +22,8 @@ world = Wc.World( Cd.Drone("jamaica" ,mass=100, position=(24 , 200)) ,
                   [Box.Box("box" ,speed0= SPEED_BOX1 ), Box.Box("box" ,speed0= SPEED_BOX2) ,
                    Box.Box("box" , speed0= SPEED_BOX3)] ,
                    Lc.Losangle("losango") ,
-                   Bg.Background("back", 500, 200))
+                   Bg.Background("back", 500, 200) ,
+                   Gc.Gravity("gravityChange"))
 
 services = Services.Services()
 
