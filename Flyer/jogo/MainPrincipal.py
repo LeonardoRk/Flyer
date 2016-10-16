@@ -23,7 +23,7 @@ world = Wc.World( Cd.Drone("jamaica" ,mass=100, position=(24 , 200)) ,
                    Box.Box("box" , speed0= SPEED_BOX3)] ,
                    Lc.Losangle("losango") ,
                    Bg.Background("back", 500, 200) ,
-                   Gc.Gravity("gravityChange"))
+                   Gc.Gravity("gravitychange"))
 
 services = Services.Services()
 

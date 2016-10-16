@@ -1,9 +1,7 @@
-
+import Services
 
 #Classe mundo
 class World:
-
-
 
 #Construtor do mundo
     def __init__(self , drone , boxes=[] , losango=0 , background=0 , gravityChange=0):
@@ -25,7 +23,6 @@ class World:
             self.defineTouchOnLosange()
 
         if self.gravityChange != None and self.gravityChange != 0:
-            self.gravityChange.update(dt)
             self.defineTouchOnGravityChange()
 
 #Desenha frames na tela
@@ -65,6 +62,7 @@ class World:
             if self.drone.sprite.bottom - 10 >= self.gravityChange.sprite.top and \
                             self.drone.sprite.top <= self.gravityChange.sprite.bottom:
                 if self.drone.containsSlowMotion == False:
+                    self.gravityChange.gravityInverted = True
                     self.gravityChange = None
                     self.drone.gravity = -self.drone.gravity
 
