@@ -47,7 +47,12 @@ class Services():
         world = Wc.World(Cd.Drone("jamaica", mass=100, position=(24, 200)),
                          [Box.Box("box", speed0=SPEED_BOX1), Box.Box("box", speed0=SPEED_BOX2),
                           Box.Box("box", speed0=SPEED_BOX3)],
-                         Lc.Losangle("losangle"),
-                         Bg.Background("back", 500, 200),
-                         Gc.Gravity("gravityChange"))
+                         Bg.Background("back", 500, 200))
+
         return world
+
+    def createItemLosangle(self):
+        return Lc.Losangle("losango")
+
+    def createItemGravityChange(self):
+        return Gc.Gravity("gravitychange")

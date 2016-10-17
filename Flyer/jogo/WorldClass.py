@@ -1,16 +1,21 @@
-import Services
+import Services as Sv
+from random import randint
 
 #Classe mundo
 class World:
 
     colision = False
 #Construtor do mundo
-    def __init__(self , drone , boxes=[] , losango=0 , background=0 , gravityChange=0):
+    def __init__(self , drone , boxes=[] , background=0 ):
+        self.TIME_TO_CREATE = 17
         self.drone = drone
         self.boxes = list(boxes)
-        self.losango = losango
+        self.losango = None
         self.background = background
-        self.gravityChange = gravityChange
+        self.gravityChange = None
+        self.timeToCreateItem = 0
+        self.services = Sv.Services()
+
 
 #Atualiza o estados dos frames
     def update(self, dt):
@@ -19,12 +24,14 @@ class World:
         for box in self.boxes:
             box.update(dt)
         colisionBox = self.defineTouchOnBox()
+        if self.losango == None and self.gravityChange == None:
+            self.defineWhenCreateItem(dt)
 
-        if self.losango != None and self.losango != 0:
+        if self.losango != None :
             self.losango.update(dt)
             self.defineTouchOnLosange()
 
-        if self.gravityChange != None and self.gravityChange != 0:
+        if self.gravityChange != None:
             self.defineTouchOnGravityChange()
 
         if colisionBox == True or colisionLimits == True:
@@ -40,7 +47,7 @@ class World:
         for box in self.boxes:
             box.draw()
 
-        if self.losango != None and self.losango != 0:
+        if self.losango != None :
             self.losango.draw()
 
         if self.gravityChange != None and self.gravityChange != 0:
@@ -68,13 +75,22 @@ class World:
         if self.drone.sprite.right - 5 >= self.gravityChange.sprite.left:
             if self.drone.sprite.bottom - 10 >= self.gravityChange.sprite.top and \
                             self.drone.sprite.top <= self.gravityChange.sprite.bottom:
-                if self.drone.containsSlowMotion == False:
-                    self.drone.containsGravityInverted = True
-                    self.gravityChange = None
-                    self.drone.gravity = -self.drone.gravity
+                self.drone.containsGravityInverted = True
+                self.gravityChange = None
+                self.drone.gravity = -self.drone.gravity
 
 
-
+    def defineWhenCreateItem(self , dt):
+        self.timeToCreateItem += dt
+        if self.timeToCreateItem >= self.TIME_TO_CREATE:
+            self.timeToCreateItem = 0
+            aleatorio = randint(0, 1)
+            if aleatorio == 0 and self.gravityChange == None:
+                self.losango =  self.services.createItemLosangle()
+            if aleatorio == 1 and self.losango == None:
+                self.gravityChange = self.services.createItemGravityChange()
+            #if aleatorio == 2:
+                """ create star"""
 
 
 
