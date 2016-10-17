@@ -12,7 +12,7 @@ class Services():
     def __init__(self):
         ...
 
-    def showMessageOnScreen(self , points , gravityActivated=False):
+    def showPontuation(self , points , gravityActivated=False):
         pointsString = ""
 
         if gravityActivated == False:
@@ -23,6 +23,21 @@ class Services():
         myfont = pygame.font.SysFont("Arial", 25)
 
         label = myfont.render(pointsString + stringPoints, 1, (0,255,0))
+        return label
+
+    def showHighestPointsOnMenu(self, highpoints):
+        HIGHPOINTS = "HIGH POINTS: "
+        stringPoints = str(highpoints)
+        myfont = pygame.font.SysFont("Arial", 30)
+
+        label = myfont.render(HIGHPOINTS + stringPoints, 1, (255, 255, 255))
+        return label
+
+    def showActualPointsOnMenu(self, points):
+        HIGHPOINTS = "Your last one: "
+        stringPoints = str(points)
+        myfont = pygame.font.SysFont("Arial", 25)
+        label = myfont.render(HIGHPOINTS + stringPoints, 1, (255, 255, 255))
         return label
 
     def createWorld(self):
