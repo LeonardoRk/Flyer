@@ -12,12 +12,17 @@ class Services():
     def __init__(self):
         ...
 
-    def showMessageOnScreen(self , points):
-        POINTS = "POINTS : "
+    def showMessageOnScreen(self , points , gravityActivated=False):
+        pointsString = ""
+
+        if gravityActivated == False:
+            pointsString = "POINTS : "
+        else:
+            pointsString = "X2 POINTS : "
         stringPoints = str(points)
         myfont = pygame.font.SysFont("Arial", 25)
 
-        label = myfont.render(POINTS + stringPoints, 1, (0,255,0))
+        label = myfont.render(pointsString + stringPoints, 1, (0,255,0))
         return label
 
     def createWorld(self):
@@ -27,7 +32,7 @@ class Services():
         world = Wc.World(Cd.Drone("jamaica", mass=100, position=(24, 200)),
                          [Box.Box("box", speed0=SPEED_BOX1), Box.Box("box", speed0=SPEED_BOX2),
                           Box.Box("box", speed0=SPEED_BOX3)],
-                         Lc.Losangle("losango"),
+                         Lc.Losangle("losangle"),
                          Bg.Background("back", 500, 200),
-                         Gc.Gravity("gravitychange"))
+                         Gc.Gravity("gravityChange"))
         return world

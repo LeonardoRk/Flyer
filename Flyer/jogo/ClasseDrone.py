@@ -14,15 +14,17 @@ class Drone:
 #Construtor do Drone
     def __init__(self , name , mass=0 ,  aceleration=(0,0)  ,position=(0,0)  ):
         self.sprite = Actor(name.lower() , pos=(position[0] , position[1]) )
+        self.MAX_INVERTED_GRAVITY = 6
         self.gravity = 80
         self.mass = mass
         self.aceleration = aceleration
         self.speed = (0,0)
         self.position = position
         self.fr = (0,0)
+        self.gravityTime = 0
         self.tempo = 0
         self.containsSlowMotion = False
-        self.containsGravityChange = False
+        self.containsGravityInverted = False
 
 
 #Desenha frames
@@ -37,6 +39,7 @@ class Drone:
         self.evaluateSpeed(0)
         self.evaluateAceleration()
         self.evaluateSprite()
+        self.countTimeOfInvertedGravity(dt)
 
         if colidiu == True:
             return True
@@ -89,4 +92,15 @@ class Drone:
     def evaluateSprite(self):
         self.sprite.x = self.position[0]
         self.sprite.y = self.position[1]
+
+    def countTimeOfInvertedGravity(self , dt):
+
+        if self.containsGravityInverted == True:
+            self.gravityTime += dt
+
+            if self.gravityTime >= self.MAX_INVERTED_GRAVITY:
+                self.gravityTime = 0
+                self.containsGravityInverted = False
+                self.gravity = - self.gravity
+
 

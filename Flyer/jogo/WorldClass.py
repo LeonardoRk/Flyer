@@ -69,7 +69,7 @@ class World:
             if self.drone.sprite.bottom - 10 >= self.gravityChange.sprite.top and \
                             self.drone.sprite.top <= self.gravityChange.sprite.bottom:
                 if self.drone.containsSlowMotion == False:
-                    self.gravityChange.gravityInverted = True
+                    self.drone.containsGravityInverted = True
                     self.gravityChange = None
                     self.drone.gravity = -self.drone.gravity
 
