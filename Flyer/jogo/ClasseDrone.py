@@ -3,7 +3,7 @@ sys.path.append("/home/leonardo/Leonardo/GIT/Flyer/Flyer/jogo")
 
 from pgzero.actor import Actor
 from pgzero.keyboard import keyboard
-import MainPrincipal as Mp
+import MenuPrincipal as Mp
 
 DISTANCE_BETWEEN_CENTER_TO_LEFT_BORDER = 24
 DISTANCE_BETWEEN_CENTER_TO_TOP_BORDER = 15
@@ -32,18 +32,23 @@ class Drone:
 #atualiza o estados dos frames
     def update(self, dt):
         self.tempo = dt
-        self.evaluateResultantForce()
+        colidiu = self.evaluateResultantForce()
         self.evaluatePosition()
         self.evaluateSpeed(0)
         self.evaluateAceleration()
         self.evaluateSprite()
+
+        if colidiu == True:
+            return True
+        else:
+            return False
 
 #Calcula a força Resultante
     def evaluateResultantForce(self):
 
         if self.position[1] >= Mp.HEIGHT - DISTANCE_BETWEEN_CENTER_TO_TOP_BORDER or \
                         self.position[1] <= DISTANCE_BETWEEN_CENTER_TO_TOP_BORDER:  #indica que morreu
-            exit()
+            return True
         else:
             jumpforce = 0
             downforce = 0

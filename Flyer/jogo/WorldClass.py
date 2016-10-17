@@ -3,6 +3,7 @@ import Services
 #Classe mundo
 class World:
 
+    colision = False
 #Construtor do mundo
     def __init__(self , drone , boxes=[] , losango=0 , background=0 , gravityChange=0):
         self.drone = drone
@@ -13,10 +14,11 @@ class World:
 
 #Atualiza o estados dos frames
     def update(self, dt):
-        self.drone.update(dt)
+        global colision
+        colisionLimits = self.drone.update(dt)
         for box in self.boxes:
             box.update(dt)
-        self.defineTouchOnBox()
+        colisionBox = self.defineTouchOnBox()
 
         if self.losango != None and self.losango != 0:
             self.losango.update(dt)
@@ -24,6 +26,11 @@ class World:
 
         if self.gravityChange != None and self.gravityChange != 0:
             self.defineTouchOnGravityChange()
+
+        if colisionBox == True or colisionLimits == True:
+            return False
+        else:
+            return True
 
 #Desenha frames na tela
     def draw(self):
@@ -45,7 +52,7 @@ class World:
 
             if self.drone.sprite.right -10 >= box.sprite.left and self.drone.sprite.left + 1 <= box.sprite.right:
                 if self.drone.sprite.bottom -8 >= box.sprite.top and self.drone.sprite.top + 8 <= box.sprite.bottom:
-                	exit()
+                    return True
 
     def defineTouchOnLosange(self):
         if  self.drone.sprite.right - 5 >= self.losango.  sprite.left:
@@ -65,6 +72,7 @@ class World:
                     self.gravityChange.gravityInverted = True
                     self.gravityChange = None
                     self.drone.gravity = -self.drone.gravity
+
 
 
 

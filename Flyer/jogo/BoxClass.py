@@ -4,7 +4,7 @@ from pgzero.actor import Actor
 import sys
 sys.path.append("/home/leonardo/Leonardo/GIT/Flyer/Flyer/jogo")
 
-import MainPrincipal as Mp
+import MenuPrincipal as Mp
 
 # Classe Box
 class Box:
