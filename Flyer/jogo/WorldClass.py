@@ -87,8 +87,10 @@ class World:
             aleatorio = randint(0, 1)
             if aleatorio == 0 and self.gravityChange == None:
                 self.losango =  self.services.createItemLosangle()
+                print("criou losango")
             if aleatorio == 1 and self.losango == None:
                 self.gravityChange = self.services.createItemGravityChange()
+                print("criou gravity inverter")
             #if aleatorio == 2:
                 """ create star"""
 

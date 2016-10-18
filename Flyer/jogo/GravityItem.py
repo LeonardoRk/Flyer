@@ -1,11 +1,12 @@
 from pgzero.actor import Actor
 from random import randint
-import ClasseDrone as Cd
+
+import MenuPrincipal as MP
 
 class Gravity:
 
     def __init__(self , name ):
-        self.pos = (randint(950, 980) , randint(20 , 390))
+        self.pos = (randint(MP.WIDTH - 40, MP.WIDTH- 20) , randint(20 , MP.HEIGHT - 25))
         self.sprite = Actor(name.lower() , self.pos)
         self.tempo = 0
 

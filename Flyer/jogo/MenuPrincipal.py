@@ -6,8 +6,8 @@ import pygame
 import Services
 
 
-WIDTH = 1000
-HEIGHT = 400
+WIDTH = 900
+HEIGHT = 390
 
 play = False
 botaoPlay = Actor("botao_play" , pos=(WIDTH/2 , HEIGHT/2))
@@ -52,7 +52,7 @@ def draw():
         else:
             points += 1
         world.draw()
-        screen.blit(services.showPontuation(points , world.drone.containsGravityInverted), (800, 20) )
+        screen.blit(services.showPontuation(points , world.drone.containsGravityInverted), (3 * WIDTH/4, 1) )
 
 
 def update(dt):

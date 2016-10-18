@@ -74,10 +74,12 @@ class Drone:
         DRONE_SPEED = 180
         DRONE_STOPPED = 0
         if keyboard.left:
+            self.sprite = Actor("drone_left" , self.position)
             dy = -DRONE_SPEED
             if self.position[0] < DISTANCE_BETWEEN_CENTER_TO_LEFT_BORDER:
                 dy = DRONE_STOPPED
         if keyboard.right:
+            self.sprite = Actor("drone_right", self.position)
             dy = DRONE_SPEED
             if self.position[0] >= Mp.WIDTH - DISTANCE_BETWEEN_CENTER_TO_LEFT_BORDER :
                 dy = DRONE_STOPPED

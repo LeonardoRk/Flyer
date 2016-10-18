@@ -5,6 +5,7 @@ import BoxClass as Box
 import LosangleClass as Lc
 import Background as Bg
 import GravityItem as Gc
+import MenuPrincipal as Mp
 
 
 class Services():
@@ -18,7 +19,7 @@ class Services():
         if gravityActivated == False:
             pointsString = "POINTS : "
         else:
-            pointsString = "X2 POINTS : "
+            pointsString = "15X POINTS : "
         stringPoints = str(points)
         myfont = pygame.font.SysFont("Arial", 25)
 
@@ -41,13 +42,14 @@ class Services():
         return label
 
     def createWorld(self):
+
         SPEED_BOX1 = -0.81
         SPEED_BOX2 = -1.1
         SPEED_BOX3 = -1.003
-        world = Wc.World(Cd.Drone("jamaica", mass=100, position=(24, 200)),
+        world = Wc.World(Cd.Drone("drone_right", mass=100, position=(24, 200)),
                          [Box.Box("box", speed0=SPEED_BOX1), Box.Box("box", speed0=SPEED_BOX2),
                           Box.Box("box", speed0=SPEED_BOX3)],
-                         Bg.Background("back", 500, 200))
+                         Bg.Background("background", 450 , 195))
 
         return world
 
@@ -56,3 +58,4 @@ class Services():
 
     def createItemGravityChange(self):
         return Gc.Gravity("gravitychange")
+
