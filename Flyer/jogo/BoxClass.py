@@ -4,7 +4,7 @@ from pgzero.actor import Actor
 import sys
 sys.path.append("/home/leonardo/Leonardo/GIT/Flyer/Flyer/jogo")
 
-import MenuPrincipal as Mp
+import MenuPrincipal as MP
 
 # Classe Box
 class Box:
@@ -13,7 +13,7 @@ class Box:
 #Construtor da Box
     def __init__(self , name , speed0=0):
         self.TIME_SLOWMOTION = 7
-        self.initialPos = (randint(500 , 1000), randint(0 , 400))
+        self.initialPos = (randint(MP.WIDTH - 40, MP.WIDTH- 20) , randint(20 , MP.HEIGHT - 25))
         self.sprite = Actor(name.lower() ,  pos=(self.initialPos[0] , self.initialPos[1]) )
         self.speed = speed0
         self.initialSpeed = speed0
@@ -59,7 +59,7 @@ class Box:
         if self.pos[0] < 0:
             MIDDLEPNG = -15
             OUTOFZONEPOINTS = -35
-            self.pos = (Mp.WIDTH + 25, randint( MIDDLEPNG, Mp.HEIGHT + MIDDLEPNG + OUTOFZONEPOINTS))
+            self.pos = (MP.WIDTH + 25, randint( MIDDLEPNG, MP.HEIGHT + MIDDLEPNG + OUTOFZONEPOINTS))
         else:
             self.pos = (self.pos[0]  + self.speed * self.tempo , self.pos[1] )
 
