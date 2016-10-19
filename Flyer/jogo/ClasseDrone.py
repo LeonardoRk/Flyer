@@ -6,7 +6,8 @@ from pgzero.keyboard import keyboard
 import MenuPrincipal as Mp
 
 DISTANCE_BETWEEN_CENTER_TO_LEFT_BORDER = 24
-DISTANCE_BETWEEN_CENTER_TO_TOP_BORDER = 15
+DISTANCE_BETWEEN_CENTER_TO_TOP_BORDER = 68
+DISTANCE_BETWEEN_CENTER_TO_BOTTOM_BORDER = 20
 
 #Classe drone
 class Drone:
@@ -23,8 +24,12 @@ class Drone:
         self.fr = (0,0)
         self.gravityTime = 0
         self.tempo = 0
+        self.containsItemSlowMotion = False
+        self.containsItemGravity = False
         self.containsSlowMotion = False
         self.containsGravityInverted = False
+        self.jumpforce = 0
+        self.downforce = 0
 
 
 #Desenha frames
@@ -49,20 +54,22 @@ class Drone:
 #Calcula a força Resultante
     def evaluateResultantForce(self):
 
-        if self.position[1] >= Mp.HEIGHT - DISTANCE_BETWEEN_CENTER_TO_TOP_BORDER or \
+        if self.position[1] >= Mp.HEIGHT - DISTANCE_BETWEEN_CENTER_TO_BOTTOM_BORDER or \
                         self.position[1] <= DISTANCE_BETWEEN_CENTER_TO_TOP_BORDER:  #indica que morreu
             return True
         else:
-            jumpforce = 0
-            downforce = 0
+            self.jumpforce = 0
+            self.downforce = 0
             if keyboard.up:
-                jumpforce = 500
-                downforce = 0
+                self.sprite.image = "drone_up"
+                self.jumpforce = 500
+                self.downforce = 0
             elif keyboard.down:
-                jumpforce = 0
-                downforce = 200
+                self.sprite.image = "drone_down"
+                self.jumpforce = 0
+                self.downforce = 200
             self.fr = ( self.fr[0] ,
-                     (-jumpforce * self.mass) + (self.mass * self.gravity) + (self.mass * downforce))
+                     (-self.jumpforce * self.mass) + (self.mass * self.gravity) + (self.mass * self.downforce))
 
 
 #Calcula a aceleração

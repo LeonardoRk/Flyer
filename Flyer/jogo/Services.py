@@ -1,4 +1,5 @@
 import pygame
+from pgzero.actor import Actor
 import ClasseDrone as Cd
 import WorldClass as Wc
 import BoxClass as Box
@@ -14,7 +15,6 @@ class Services():
         ...
 
     def showPontuation(self , points , gravityActivated=False):
-        pointsString = ""
 
         if gravityActivated == False:
             pointsString = "POINTS : "
@@ -49,7 +49,7 @@ class Services():
         world = Wc.World(Cd.Drone("drone_right", mass=100, position=(24, 200)),
                          [Box.Box("box", speed0=SPEED_BOX1), Box.Box("box", speed0=SPEED_BOX2),
                           Box.Box("box", speed0=SPEED_BOX3)],
-                         Bg.Background("background", 450 , 195))
+                         Bg.Background("background", Mp.WIDTH/2 , Mp.HEIGHT/2 + 25))
 
         return world
 
@@ -58,4 +58,12 @@ class Services():
 
     def createItemGravityChange(self):
         return Gc.Gravity("gravitychange")
+
+    def drawKey(self):
+
+        x = Actor("z" , pos = (570 , 23))
+        y = Actor("x" , pos = (820 , 23))
+        key = (x , y)
+        return key
+
 

@@ -5,9 +5,8 @@ from pgzero.actor import Actor
 import pygame
 import Services
 
-
-WIDTH = 900
-HEIGHT = 390
+WIDTH = 905
+HEIGHT = 450
 
 play = False
 botaoPlay = Actor("botao_play" , pos=(WIDTH/2 , HEIGHT/2))
@@ -17,6 +16,7 @@ highpoints = 0
 actualPoints = 0
 savedPoints = False
 world = None
+paused = False
 
 
 def draw():
@@ -28,6 +28,10 @@ def draw():
                 play = True
                 world = services.createWorld()
                 return world
+    if keyboard.K_RETURN and play == False:
+        play = True
+        world = services.createWorld()
+        return world
 
     if play == False :
         screen.clear()
@@ -36,7 +40,6 @@ def draw():
                 highpoints = points
             actualPoints = points
             savedPoints = True
-
 
         points = 0
         botaoPlay.draw()
@@ -52,13 +55,23 @@ def draw():
         else:
             points += 1
         world.draw()
-        screen.blit(services.showPontuation(points , world.drone.containsGravityInverted), (3 * WIDTH/4, 1) )
+        key = services.drawKey()
+        key[0].draw()
+        key[1].draw()
+        screen.blit(services.showPontuation(points , world.drone.containsGravityInverted), (1, 1) )
+
 
 
 def update(dt):
-    global world , play
+    global world , play , paused
+    if  paused:
+        if keyboard.K_ESCAPE:
+            paused = False
+        return
+
     if world != None and play == True:
         play = world.update(dt)
+
 
 
 

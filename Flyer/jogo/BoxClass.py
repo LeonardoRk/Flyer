@@ -13,7 +13,7 @@ class Box:
 #Construtor da Box
     def __init__(self , name , speed0=0):
         self.TIME_SLOWMOTION = 7
-        self.initialPos = (randint(MP.WIDTH - 40, MP.WIDTH- 20) , randint(20 , MP.HEIGHT - 25))
+        self.initialPos = (randint(MP.WIDTH - 40, MP.WIDTH- 20) , randint(75 , MP.HEIGHT - 25))
         self.sprite = Actor(name.lower() ,  pos=(self.initialPos[0] , self.initialPos[1]) )
         self.speed = speed0
         self.initialSpeed = speed0
@@ -57,9 +57,7 @@ class Box:
 #Define a pos
     def evaluatePos(self , dt):
         if self.pos[0] < 0:
-            MIDDLEPNG = -15
-            OUTOFZONEPOINTS = -35
-            self.pos = (MP.WIDTH + 25, randint( MIDDLEPNG, MP.HEIGHT + MIDDLEPNG + OUTOFZONEPOINTS))
+            self.pos = (MP.WIDTH + 25 , randint(75 , MP.HEIGHT - 25))
         else:
             self.pos = (self.pos[0]  + self.speed * self.tempo , self.pos[1] )
 

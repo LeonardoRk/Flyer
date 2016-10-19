@@ -1,4 +1,7 @@
+from pgzero.keyboard import keyboard
+
 import Services as Sv
+from pgzero.actor import Actor
 from random import randint
 
 #Classe mundo
@@ -7,7 +10,7 @@ class World:
     colision = False
 #Construtor do mundo
     def __init__(self , drone , boxes=[] , background=0 ):
-        self.TIME_TO_CREATE = 17
+        self.TIME_TO_CREATE_ITEM = 8
         self.drone = drone
         self.boxes = list(boxes)
         self.losango = None
@@ -24,7 +27,7 @@ class World:
         for box in self.boxes:
             box.update(dt)
         colisionBox = self.defineTouchOnBox()
-        if self.losango == None and self.gravityChange == None:
+        if self.losango == None or self.gravityChange == None:
             self.defineWhenCreateItem(dt)
 
         if self.losango != None :
@@ -33,6 +36,19 @@ class World:
 
         if self.gravityChange != None:
             self.defineTouchOnGravityChange()
+
+        if keyboard.x and self.drone.containsItemGravity :
+            self.gravityChange = None
+            self.drone.containsGravityInverted = True
+            self.drone.gravity = -self.drone.gravity
+            self.drone.containsItemGravity = False
+
+        if keyboard.z and self.drone.containsItemSlowMotion:
+            self.losango = None
+            self.boxes[0].slowMotion = True
+            self.boxes[1].slowMotion = True
+            self.boxes[2].slowMotion = True
+            self.drone.containsItemSlowMotion = False
 
         if colisionBox == True or colisionLimits == True:
             return False
@@ -64,30 +80,31 @@ class World:
     def defineTouchOnLosange(self):
         if  self.drone.sprite.right - 5 >= self.losango.  sprite.left:
             if self.drone.sprite.bottom -10  >= self.losango.sprite.top and self.drone.sprite.top <= self.losango.sprite.bottom:
-                if self.drone.containsSlowMotion == False:
-                    self.losango = None
-                    self.boxes[0].slowMotion = True
-                    self.boxes[1].slowMotion = True
-                    self.boxes[2].slowMotion = True
+                self.losango.sprite = Actor("losango" , pos=(620 , 23))
+                self.drone.containsItemSlowMotion = True
 
 
     def defineTouchOnGravityChange(self):
         if self.drone.sprite.right - 5 >= self.gravityChange.sprite.left:
             if self.drone.sprite.bottom - 10 >= self.gravityChange.sprite.top and \
                             self.drone.sprite.top <= self.gravityChange.sprite.bottom:
-                self.drone.containsGravityInverted = True
-                self.gravityChange = None
-                self.drone.gravity = -self.drone.gravity
+                self.drone.containsItemGravity = True
+                self.gravityChange.sprite = Actor("gravitychange" , pos=(870 , 23))
 
 
     def defineWhenCreateItem(self , dt):
         self.timeToCreateItem += dt
-        if self.timeToCreateItem >= self.TIME_TO_CREATE:
+        if self.timeToCreateItem >= self.TIME_TO_CREATE_ITEM:
             self.timeToCreateItem = 0
-            aleatorio = randint(0, 1)
-            if aleatorio == 0 and self.gravityChange == None:
+            if self.losango == None and self.gravityChange == None:
+                aleatorio = randint(0, 1)
+            elif self.losango == None and self.gravityChange != None:
+                aleatorio = 0
+            else:
+                aleatorio = 1
+            if aleatorio == 0:
                 self.losango =  self.services.createItemLosangle()
-            if aleatorio == 1 and self.losango == None:
+            if aleatorio == 1:
                 self.gravityChange = self.services.createItemGravityChange()
             #if aleatorio == 2:
                 """ create star"""

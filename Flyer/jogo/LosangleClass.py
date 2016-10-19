@@ -7,7 +7,7 @@ class Losangle:
 
     def __init__(self , name=None ):
         self.tempo = 0
-        self.pos = (randint(MP.WIDTH - 40, MP.WIDTH- 20) , randint(20 , MP.HEIGHT - 25))
+        self.pos = (randint(MP.WIDTH - 40, MP.WIDTH- 20) , randint(75 , MP.HEIGHT - 25))
         self.sprite = Actor(name.lower() , self.pos)
 
     def draw(self ):
