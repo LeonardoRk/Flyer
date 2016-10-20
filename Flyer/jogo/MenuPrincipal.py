@@ -16,12 +16,11 @@ highpoints = 0
 actualPoints = 0
 savedPoints = False
 world = None
-paused = False
 
 
 def draw():
     global play, points , world , highpoints , actualPoints , savedPoints
-    
+
     if pygame.mouse.get_pressed()[0] == 1:  # LEFT BUTTON CLICKED
         if pygame.mouse.get_pos()[0] >= botaoPlay.left and pygame.mouse.get_pos()[0] <= botaoPlay.right:
             if pygame.mouse.get_pos()[1] >= botaoPlay.top and pygame.mouse.get_pos()[1] <= botaoPlay.bottom:
@@ -58,16 +57,14 @@ def draw():
         key = services.drawKey()
         key[0].draw()
         key[1].draw()
+        key[2].draw()
         screen.blit(services.showPontuation(points , world.drone.containsGravityInverted), (1, 1) )
 
 
 
 def update(dt):
-    global world , play , paused
-    if  paused:
-        if keyboard.K_ESCAPE:
-            paused = False
-        return
+    global world , play
+
 
     if world != None and play == True:
         play = world.update(dt)

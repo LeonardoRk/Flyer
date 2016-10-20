@@ -7,6 +7,7 @@ import LosangleClass as Lc
 import Background as Bg
 import GravityItem as Gc
 import MenuPrincipal as Mp
+import StarItem as Si
 
 
 class Services():
@@ -19,7 +20,7 @@ class Services():
         if gravityActivated == False:
             pointsString = "POINTS : "
         else:
-            pointsString = "15X POINTS : "
+            pointsString = "20X POINTS : "
         stringPoints = str(points)
         myfont = pygame.font.SysFont("Arial", 25)
 
@@ -59,11 +60,16 @@ class Services():
     def createItemGravityChange(self):
         return Gc.Gravity("gravitychange")
 
+    def createItemStart(self):
+        return Si.StarItem("star")
+
     def drawKey(self):
 
-        x = Actor("z" , pos = (570 , 23))
-        y = Actor("x" , pos = (820 , 23))
-        key = (x , y)
+        x = Actor("z" , pos = (370 , 23))
+        y = Actor("x" , pos = (520 , 23))
+        c = Actor("c" , pos= (700 , 27))
+        key = (x , y , c)
+
         return key
 
 

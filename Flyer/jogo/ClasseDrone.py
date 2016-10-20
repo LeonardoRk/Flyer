@@ -23,11 +23,14 @@ class Drone:
         self.position = position
         self.fr = (0,0)
         self.gravityTime = 0
+        self.starTime = 0
         self.tempo = 0
         self.containsItemSlowMotion = False
         self.containsItemGravity = False
+        self.containsItemStar = False
         self.containsSlowMotion = False
         self.containsGravityInverted = False
+        self.containsStartActivated = False
         self.jumpforce = 0
         self.downforce = 0
 
@@ -45,6 +48,7 @@ class Drone:
         self.evaluateAceleration()
         self.evaluateSprite()
         self.countTimeOfInvertedGravity(dt)
+        self.countTimeOfStarItem(dt)
 
         if colidiu == True:
             return True
@@ -61,11 +65,17 @@ class Drone:
             self.jumpforce = 0
             self.downforce = 0
             if keyboard.up:
-                self.sprite.image = "drone_up"
+                if self.containsStartActivated:
+                    self.sprite.image = "drone_up_red"
+                else:
+                    self.sprite.image = "drone_up"
                 self.jumpforce = 500
                 self.downforce = 0
             elif keyboard.down:
-                self.sprite.image = "drone_down"
+                if self.containsStartActivated:
+                    self.sprite.image = "drone_down_red"
+                else:
+                    self.sprite.image = "drone_down"
                 self.jumpforce = 0
                 self.downforce = 200
             self.fr = ( self.fr[0] ,
@@ -81,12 +91,18 @@ class Drone:
         DRONE_SPEED = 180
         DRONE_STOPPED = 0
         if keyboard.left:
-            self.sprite = Actor("drone_left" , self.position)
+            if self.containsStartActivated:
+                self.sprite = Actor("drone_left_red", self.position)
+            else:
+                self.sprite = Actor("drone_left" , self.position)
             dy = -DRONE_SPEED
             if self.position[0] < DISTANCE_BETWEEN_CENTER_TO_LEFT_BORDER:
                 dy = DRONE_STOPPED
         if keyboard.right:
-            self.sprite = Actor("drone_right", self.position)
+            if self.containsStartActivated:
+                self.sprite = Actor("drone_right_red", self.position)
+            else:
+                self.sprite = Actor("drone_right", self.position)
             dy = DRONE_SPEED
             if self.position[0] >= Mp.WIDTH - DISTANCE_BETWEEN_CENTER_TO_LEFT_BORDER :
                 dy = DRONE_STOPPED
@@ -111,5 +127,17 @@ class Drone:
                 self.gravityTime = 0
                 self.containsGravityInverted = False
                 self.gravity = - self.gravity
+
+    def countTimeOfStarItem(self , dt):
+
+            if self.containsStartActivated == True:
+                self.starTime += dt
+
+                if self.starTime >= self.MAX_INVERTED_GRAVITY:
+                    self.starTime = 0
+                    self.containsStartActivated = False
+
+
+
 
 
