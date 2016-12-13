@@ -135,10 +135,3 @@ class Services():
             actualAngHighPoints[1] = points
 
         return actualAngHighPoints
-
-
-
-
-
-
-

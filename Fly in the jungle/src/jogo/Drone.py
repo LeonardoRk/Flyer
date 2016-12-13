@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/leonardo/Área de Trabalho/Fly in the jungle/jogo")
+sys.path.append(os.path.dirname(__file__))
 from pygame.locals import *
 
 import pygame.mixer
